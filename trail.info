@@ -1,0 +1,12 @@
+name = Trail
+description =  Allows users to create trail entities
+core = 7.x
+package = Resort
+version = 7.x-1.0
+
+dependencies[] = entity
+dependencies[] = ctools
+dependencies[] = views
+
+files[] = entity/trail.entity.inc
+files[] = entity/trail.entity.controller.inc

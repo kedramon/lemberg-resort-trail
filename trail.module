@@ -1,0 +1,157 @@
+<?php
+
+// Include trail CRUD
+require_once 'entity/trail.entity.crud.inc';
+// Include trail functions
+require_once 'entity/trail.entity.func.inc';
+
+/**
+ * Implements hook_views_api().
+ */
+function trail_views_api() {
+  return array(
+    'api' => 2,
+    'path' => drupal_get_path('module', 'trail') . '/views',
+  );
+}
+
+/**
+ * Implements hook_menu();
+ */
+function trail_menu() {
+  $items = array();
+
+  // trail menu items.
+  $items['admin/content/trails/trail/add'] = array(
+    'title' => 'Add trail',
+    'page callback' => 'trail_add_page',
+    'access callback' => 'trail_access',
+    'access arguments' => array('create'),
+    'file' => 'entity/trail.entity.pages.inc',
+    'type' => MENU_LOCAL_ACTION,
+  );
+  $items['trail/%trail'] = array(
+    'title callback' => 'entity_label',
+    'title arguments' => array('trail', 1),
+    'page callback' => 'trail_view_page',
+    'page arguments' => array(1),
+    'access callback' => 'trail_access',
+    'access arguments' => array('view', 1),
+    'file' => 'entity/trail.entity.pages.inc',
+  );
+  $items['trail/%trail/view'] = array(
+    'title' => 'View',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+  $items['trail/%trail/edit'] = array(
+    'title' => 'Edit',
+    'page callback' => 'trail_add_page',
+    'page arguments' => array(1),
+    'access callback' => 'trail_access',
+    'access arguments' => array('edit', 1),
+    'file' => 'entity/trail.entity.pages.inc',
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 0,
+  );
+  $items['trail/%trail/delete'] = array(
+    'title' => 'Delete',
+    'page callback' => 'trail_delete_page',
+    'page arguments' => array(1),
+    'access callback' => 'trail_access',
+    'access arguments' => array('delete', 1),
+    'file' => 'entity/trail.entity.pages.inc',
+    'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 10,
+  );
+
+  // Admin menu items.
+  if (module_exists('field_ui')) {
+    $items['admin/structure/trail'] = array(
+      'title' => 'Trails',
+      'description' => 'Manage trails.',
+      'page callback' => 'trail_admin_page',
+      'access arguments' => array('administer trails'),
+      'file' => 'includes/trail.admin.inc',
+    );
+  }
+
+  return $items;
+}
+
+/**
+ * Implements hook_entity_info();
+ */
+function trail_entity_info() {
+  $entity_info = array(
+    'trail' => array(
+      'label' => t('Trail'),
+      'entity class' => 'Trail',
+      'controller class' => 'TrailController',
+      'base table' => 'trail',
+      'module' => 'trail',
+      'label callback' => 'trail_entity_label',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+        'id' => 'tid',
+        'label' => 'tid',
+      ),
+      'bundles' => array(
+        'trail' => array(
+          'label' => t('Trail'),
+          'admin' => array(
+            'path' => 'admin/structure/trail',
+            'access arguments' => array('administer trails'),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  return $entity_info;
+}
+
+/**
+ * Implements hook_permission();
+ */
+function trail_permission() {
+  $permissions = array();
+
+  $permissions['administer trails'] = array(
+    'title' => t('Administer trails'),
+  );
+  $permissions['access trails'] = array(
+    'title' => t('Access trails'),
+  );
+  $permissions['manage trails'] = array(
+    'title' => t('Manage trails'),
+  );
+
+  return $permissions;
+}
+
+/**
+ * Implements hook_entity_property_info().
+ * @param null
+ * @return array()
+ */
+function trail_entity_property_info() {
+  $info = array();
+
+  $info['trail']['properties']['tid'] = array(
+    'label' => t('Trail id'),
+    'type' => 'integer',
+    'description' => t('Entity ID'),
+    'schema field' => 'tid',
+  );
+  $info['trail']['properties']['created'] = array(
+    'label' => t('Created'),
+    'type' => 'date',
+    'description' => t('Entity created'),
+    'schema field' => 'created',
+  );
+
+  return $info;
+}
