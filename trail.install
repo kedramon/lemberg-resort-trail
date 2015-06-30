@@ -203,7 +203,7 @@ function trail_add_vocabularies() {
       'vocabulary' => (object) array(
         'name' => 'Trail difficulty',
         'description' => '',
-        'machine_name' => 'trail_type',
+        'machine_name' => 'trail_difficulty',
       ),
       'terms' => array(
         'hard' => (object) array(
