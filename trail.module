@@ -153,6 +153,12 @@ function trail_entity_property_info() {
     'description' => t('Entity created'),
     'schema field' => 'created',
   );
+  $info['trail']['properties']['status'] = array(
+    'label' => t('Status'),
+    'type' => 'integer',
+    'description' => t('Entity status'),
+    'schema field' => 'status',
+  );
 
   return $info;
 }
