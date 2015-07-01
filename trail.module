@@ -91,6 +91,7 @@ function trail_entity_info() {
       'entity class' => 'Trail',
       'controller class' => 'TrailController',
       'base table' => 'trail',
+      'access callback' => 'trail_access',
       'module' => 'trail',
       'label callback' => 'trail_entity_label',
       'fieldable' => TRUE,
