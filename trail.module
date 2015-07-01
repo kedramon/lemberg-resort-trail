@@ -22,7 +22,7 @@ function trail_menu() {
   $items = array();
 
   // trail menu items.
-  $items['admin/content/trails/trail/add'] = array(
+  $items['trail/add'] = array(
     'title' => 'Add trail',
     'page callback' => 'trail_add_page',
     'access callback' => 'trail_access',
@@ -154,4 +154,23 @@ function trail_entity_property_info() {
   );
 
   return $info;
+}
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ * @param null
+ * @return array()
+ */
+function trail_menu_local_tasks_alter(&$data, $router_item, $root_path) {
+  switch ($root_path) {
+    case 'admin/content/trails':
+      $item = menu_get_item('trail/add');
+      if ($item['access']) {
+        $data['actions']['output'][] = array(
+          '#theme' => 'menu_local_action',
+          '#link' => $item,
+        );
+      }
+      break;
+  }
 }
