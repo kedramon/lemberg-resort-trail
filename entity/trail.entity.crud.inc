@@ -4,7 +4,7 @@
 
 // Create trail entity
 function trail_create(array $values = array()) {
-  return new trail($values);
+  return new Trail($values);
 }
 
 // Save trail entity

@@ -5,30 +5,30 @@
  */
 function trail_schema() {
   $schema['trail'] = array(
-    'fields' => array(
-      'tid' => array(
+    'fields'      => array(
+      'tid'     => array(
         'description' => 'The primary identifier for trail.',
-        'type' => 'serial',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
+        'type'        => 'serial',
+        'unsigned'    => TRUE,
+        'not null'    => TRUE,
       ),
       'created' => array(
         'description' => 'The Unix timestamp when the activation data record was created.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
       'changed' => array(
         'description' => 'The Unix timestamp when the activation data record was most recently updated.',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 0,
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 0,
       ),
-      'status' => array(
+      'status'  => array(
         'description' => 'Boolean indicating whether the trail is published (visible to non-administrators).',
-        'type' => 'int',
-        'not null' => TRUE,
-        'default' => 1,
+        'type'        => 'int',
+        'not null'    => TRUE,
+        'default'     => 1,
       ),
     ),
     'primary key' => array('tid'),
@@ -38,6 +38,8 @@ function trail_schema() {
 }
 
 function trail_install() {
+  module_enable(array('entityreference'), TRUE);
+
   // Attach fields to trail entity
   foreach (trail_fields() as $field) {
     if (!field_info_field($field['field_base']['field_name'])) {
@@ -55,48 +57,48 @@ function trail_fields() {
 
   // trail name
   $fields['trail_name'] = array(
-    'field_base' => array(
-      'field_name' => 'trail_name',
+    'field_base'     => array(
+      'field_name'   => 'trail_name',
       'entity_types' => array(),
-      'settings' => array(
+      'settings'     => array(
         'max_length' => 255,
       ),
-      'type' => 'text',
+      'type'         => 'text',
     ),
     'field_instance' => array(
-      'entity_type' => 'trail',
-      'bundle' => 'trail',
-      'field_name' => 'trail_name',
+      'entity_type'   => 'trail',
+      'bundle'        => 'trail',
+      'field_name'    => 'trail_name',
       'default_value' => NULL,
-      'label' => t('Name'),
-      'required' => TRUE,
-      'settings' => array(
+      'label'         => t('Name'),
+      'required'      => TRUE,
+      'settings'      => array(
         'text_processing' => 0,
       ),
-      'widget' => array(
+      'widget'        => array(
         'settings' => array(
           'size' => 60,
         ),
-        'type' => 'text_textfield',
-        'weight' => 0,
+        'type'     => 'text_textfield',
+        'weight'   => 0,
       ),
     ),
   );
 
   // trail status
   $fields['trail_status'] = array(
-    'field_base' => array(
-      'field_name' => 'trail_status',
+    'field_base'     => array(
+      'field_name'   => 'trail_status',
       'entity_types' => array(),
-      'type' => 'entityreference',
-      'settings' => array(
-        'target_type' => 'taxonomy_term',
+      'type'         => 'entityreference',
+      'settings'     => array(
+        'target_type'      => 'taxonomy_term',
         'handler_settings' => array(
           'target_bundles' => array(
             'trail_status' => 'trail_status'
           ),
         ),
-        'behaviors' => array(
+        'behaviors'        => array(
           'views-select-list' => array(
             'status' => 1,
           ),
@@ -104,14 +106,14 @@ function trail_fields() {
       ),
     ),
     'field_instance' => array(
-      'entity_type' => 'trail',
-      'bundle' => 'trail',
-      'field_name' => 'trail_status',
+      'entity_type'   => 'trail',
+      'bundle'        => 'trail',
+      'field_name'    => 'trail_status',
       'default_value' => NULL,
-      'label' => t('Status'),
-      'required' => TRUE,
-      'widget' => array(
-        'type' => 'options_select',
+      'label'         => t('Status'),
+      'required'      => TRUE,
+      'widget'        => array(
+        'type'   => 'options_select',
         'weight' => 1,
       ),
     ),
@@ -119,18 +121,18 @@ function trail_fields() {
 
   // trail type
   $fields['trail_difficulty'] = array(
-    'field_base' => array(
-      'field_name' => 'trail_difficulty',
+    'field_base'     => array(
+      'field_name'   => 'trail_difficulty',
       'entity_types' => array(),
-      'type' => 'entityreference',
-      'settings' => array(
-        'target_type' => 'taxonomy_term',
+      'type'         => 'entityreference',
+      'settings'     => array(
+        'target_type'      => 'taxonomy_term',
         'handler_settings' => array(
           'target_bundles' => array(
             'trail_difficulty' => 'trail_difficulty'
           ),
         ),
-        'behaviors' => array(
+        'behaviors'        => array(
           'views-select-list' => array(
             'status' => 1,
           ),
@@ -138,14 +140,14 @@ function trail_fields() {
       ),
     ),
     'field_instance' => array(
-      'entity_type' => 'trail',
-      'bundle' => 'trail',
-      'field_name' => 'trail_difficulty',
+      'entity_type'   => 'trail',
+      'bundle'        => 'trail',
+      'field_name'    => 'trail_difficulty',
       'default_value' => NULL,
-      'label' => t('Difficulty'),
-      'required' => TRUE,
-      'widget' => array(
-        'type' => 'options_select',
+      'label'         => t('Difficulty'),
+      'required'      => TRUE,
+      'widget'        => array(
+        'type'   => 'options_select',
         'weight' => 2,
       ),
     ),
@@ -153,23 +155,23 @@ function trail_fields() {
 
   // trail groomed
   $fields['trail_groomed'] = array(
-    'field_base' => array(
-      'field_name' => 'trail_groomed',
+    'field_base'     => array(
+      'field_name'   => 'trail_groomed',
       'entity_types' => array(),
-      'settings' => array(
+      'settings'     => array(
         'allowed_values' => array(0 => t('No'), 1 => t('Yes')),
       ),
-      'type' => 'list_boolean',
+      'type'         => 'list_boolean',
     ),
     'field_instance' => array(
-      'entity_type' => 'trail',
-      'bundle' => 'trail',
-      'field_name' => 'trail_groomed',
+      'entity_type'   => 'trail',
+      'bundle'        => 'trail',
+      'field_name'    => 'trail_groomed',
       'default_value' => NULL,
-      'label' => t('Groomed'),
-      'required' => TRUE,
-      'widget' => array(
-        'type' => 'options_buttons',
+      'label'         => t('Groomed'),
+      'required'      => TRUE,
+      'widget'        => array(
+        'type'   => 'options_buttons',
         'weight' => 3,
       ),
     ),
@@ -182,44 +184,44 @@ function trail_fields() {
  */
 function trail_add_vocabularies() {
   $taxonomies = array(
-    'trail_status' => array(
+    'trail_status'     => array(
       'vocabulary' => (object) array(
-        'name' => 'Trail Status',
-        'description' => '',
+        'name'         => 'Trail Status',
+        'description'  => '',
         'machine_name' => 'trail_status',
       ),
-      'terms' => array(
-        'open' => (object) array(
-          'name' => t('Open'),
+      'terms'      => array(
+        'open'   => (object) array(
+          'name'   => t('Open'),
           'weight' => 0,
         ),
         'closed' => (object) array(
-          'name' => t('Closed'),
+          'name'   => t('Closed'),
           'weight' => 1,
         ),
       ),
     ),
     'trail_difficulty' => array(
       'vocabulary' => (object) array(
-        'name' => 'Trail difficulty',
-        'description' => '',
+        'name'         => 'Trail difficulty',
+        'description'  => '',
         'machine_name' => 'trail_difficulty',
       ),
-      'terms' => array(
-        'hard' => (object) array(
-          'name' => t('Hard'),
+      'terms'      => array(
+        'hard'     => (object) array(
+          'name'   => t('Hard'),
           'weight' => 0,
         ),
-        'easy' => (object) array(
-          'name' => t('Easy'),
+        'easy'     => (object) array(
+          'name'   => t('Easy'),
           'weight' => 0,
         ),
-        'expert' => (object) array(
-          'name' => t('Expert'),
+        'expert'   => (object) array(
+          'name'   => t('Expert'),
           'weight' => 0,
         ),
         'moderate' => (object) array(
-          'name' => t('Moderate'),
+          'name'   => t('Moderate'),
           'weight' => 0,
         ),
       ),
@@ -249,4 +251,18 @@ function trail_add_vocabularies() {
  */
 function trail_uninstall() {
   field_attach_delete_bundle('trail', 'trail');
+}
+
+/**
+ * Add type to {trail} table.
+ */
+function trail_update_7100() {
+  $spec = array(
+    'description' => 'The bundle type',
+    'type'        => 'varchar',
+    'length'      => 32,
+    'not null'    => TRUE,
+    'default'     => 'trail',
+  );
+  db_add_field('trail', 'type', $spec);
 }

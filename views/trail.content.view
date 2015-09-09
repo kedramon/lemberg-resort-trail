@@ -23,10 +23,8 @@ $handler->display->display_options['style_plugin'] = 'table';
 $handler->display->display_options['style_options']['columns'] = array(
   'trail_name' => 'trail_name',
   'trail_status' => 'trail_status',
-  'trail_work_time' => 'trail_work_time',
-  'trail_height' => 'trail_height',
-  'trail_duration' => 'trail_duration',
-  'trail_type' => 'trail_type',
+  'trail_difficulty' => 'trail_difficulty',
+  'trail_groomed' => 'trail_groomed',
   'tid' => 'tid',
   'nothing' => 'nothing',
   'nothing_1' => 'nothing',
@@ -34,49 +32,35 @@ $handler->display->display_options['style_options']['columns'] = array(
 $handler->display->display_options['style_options']['default'] = '-1';
 $handler->display->display_options['style_options']['info'] = array(
   'trail_name' => array(
-    'sortable' => 0,
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
   ),
   'trail_status' => array(
-    'sortable' => 0,
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
   ),
-  'trail_work_time' => array(
-    'sortable' => 0,
+  'trail_difficulty' => array(
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
   ),
-  'trail_height' => array(
-    'sortable' => 0,
-    'default_sort_order' => 'asc',
-    'align' => '',
-    'separator' => '',
-    'empty_column' => 0,
-  ),
-  'trail_duration' => array(
-    'sortable' => 0,
-    'default_sort_order' => 'asc',
-    'align' => '',
-    'separator' => '',
-    'empty_column' => 0,
-  ),
-  'trail_type' => array(
-    'sortable' => 0,
+  'trail_groomed' => array(
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
     'empty_column' => 0,
   ),
   'tid' => array(
-    'sortable' => 0,
+    'sortable' => 1,
     'default_sort_order' => 'asc',
     'align' => '',
     'separator' => '',
@@ -146,7 +130,7 @@ $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['label'] = 'Operations';
 $handler->display->display_options['fields']['nothing']['alter']['text'] = 'Edit';
 $handler->display->display_options['fields']['nothing']['alter']['make_link'] = TRUE;
-$handler->display->display_options['fields']['nothing']['alter']['path'] = 'trail/[tid]/edit';
+$handler->display->display_options['fields']['nothing']['alter']['path'] = 'admin/trail/[tid]/edit';
 $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
 /* Field: Global: Custom text */
 $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
@@ -155,7 +139,7 @@ $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing_1']['label'] = '';
 $handler->display->display_options['fields']['nothing_1']['alter']['text'] = 'Delete';
 $handler->display->display_options['fields']['nothing_1']['alter']['make_link'] = TRUE;
-$handler->display->display_options['fields']['nothing_1']['alter']['path'] = 'trail/[tid]/delete';
+$handler->display->display_options['fields']['nothing_1']['alter']['path'] = 'admin/trail/[tid]/delete';
 $handler->display->display_options['fields']['nothing_1']['element_label_colon'] = FALSE;
 /* Sort criterion: Trail: Created */
 $handler->display->display_options['sorts']['created']['id'] = 'created';

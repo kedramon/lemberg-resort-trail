@@ -16,6 +16,7 @@ class Trail extends Entity {
    * @var int
    */
   public $tid;
+  public $type;
 
   /**
    * Trail record creation Unix timestamp.
@@ -44,6 +45,7 @@ class Trail extends Entity {
    * @see entity_create()
    */
   public function __construct(array $values = array()) {
+    $this->type = 'trail';
     parent::__construct($values, 'trail');
   }
 }

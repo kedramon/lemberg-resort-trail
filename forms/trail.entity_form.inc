@@ -39,10 +39,11 @@ function trail_edit_form($form, &$form_state) {
 }
 
 /**
- * trail entity edit form vatidation callback.
+ * trail entity edit form validation callback.
  */
-function trail_edit_form_vatidate($form, &$form_state) {
-  entity_form_field_vatidate('trail', $form, $form_state);
+function trail_edit_form_validate($form, &$form_state) {
+  $trail = $form_state['trail'];
+  field_attach_form_validate('trail', $trail, $form, $form_state);
 }
 
 /**
